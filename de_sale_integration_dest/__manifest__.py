@@ -13,13 +13,14 @@
     "author": "Dynexcel",
     "website": "http://www.dynexcel.co",
     "version": '13.1.0.0',
-    "depends": ['base','sale'],
+    "depends": ['base','sale','stock'],
     "data": [
         'data/data.xml',
         'security/ir.model.access.csv',
         'security/security.xml',
         'views/db_config_view.xml',
         'views/sale_order_view.xml',
+        'views/product_product_view.xml',
     ],
     
     "price": 25,
