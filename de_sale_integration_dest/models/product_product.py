@@ -33,6 +33,6 @@ class ProductProduct(models.Model):
             
 
     
-    match_pattern = fields.Integer(string='Match Pattern', compute='compute_matching_pattern')
+    match_pattern = fields.Char(string='Match Pattern', compute='compute_matching_pattern', store=True)
     source_ref = fields.Char(string='Source Ref', help='To store actual Product ID from source db.')
     

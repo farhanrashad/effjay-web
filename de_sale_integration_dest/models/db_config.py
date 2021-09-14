@@ -46,7 +46,7 @@ class DataMigrtaionConfig(models.Model):
         password_db_odoo132 = self.get_authenticate()[3]
         odoo_132 = self.get_authenticate()[4]
         
-        products = self.env['product.product'].search([('source_ref','=',False)])
+        products = self.env['product.product'].search([('source_ref','=',False),('match_pattern','!=',False)])
         
         if products:
             for product in products:
