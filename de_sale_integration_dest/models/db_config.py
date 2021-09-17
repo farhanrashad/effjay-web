@@ -46,17 +46,29 @@ class DataMigrtaionConfig(models.Model):
         password_db_odoo132 = self.get_authenticate()[3]
         odoo_132 = self.get_authenticate()[4]
         
-        products = self.env['product.product'].search([('source_ref','=',False),('match_pattern','!=',False)])
+        products = self.env['product.product'].search([('match_pattern','!=',False)], order="id desc", limit=300)
         
         if products:
             for product in products:
                 print('product.match_pattern------',product.match_pattern)#Juice,2-3
+                
                 db1_product_id = model_2.execute_kw(db_odoo132, odoo_132, password_db_odoo132,'product.product', 'search', [[['match_pattern','=',product.match_pattern]]])
                 print('----db1_product_id----',db1_product_id)
                 
                 if db1_product_id != []:
-                    if db1_product_id[0]:
-                        product.source_ref = db1_product_id[0]
+                    db1_product_id = model_2.execute_kw(db_odoo132, odoo_132, password_db_odoo132,'product.product','search_read',
+                                                        [[['id','=',db1_product_id[0]]]],
+                                                        {'fields': ['id', 'default_code', 'barcode'], 'limit': 1})
+    
+                    print('----db1_product_id2----',db1_product_id)
+                    if db1_product_id != []:
+                        if db1_product_id[0]:
+                            if db1_product_id[0].get('id'):
+                                product.source_ref = db1_product_id[0].get('id')
+                            if db1_product_id[0].get('barcode'):
+                                product.barcode = db1_product_id[0].get('barcode')
+                            if db1_product_id[0].get('default_code'):
+                                product.default_code = db1_product_id[0].get('default_code')
     
     
     

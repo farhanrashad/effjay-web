@@ -12,6 +12,7 @@ class ProductProduct(models.Model):
     _description = 'Product in DB Integration Sale'
     
     
+    @api.depends('product_tmpl_id')
     def compute_matching_pattern(self):
         for rec in self:
             ids = ''
