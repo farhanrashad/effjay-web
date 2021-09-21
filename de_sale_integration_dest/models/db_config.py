@@ -13,6 +13,10 @@ class DataMigrtaionConfig(models.Model):
     _rec_name = 'name_db_2'
     
     
+    """-------------------cron jobs start----------------------"""
+    def auto_synch_product_ids(self):
+        self.search([], order="id desc", limit=1).get_product_ids()
+    
     
     def get_authenticate(self):
         host_name = self.url_db_2

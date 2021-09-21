@@ -15,7 +15,7 @@
     "version": '13.1.0.0',
     "depends": ['base','sale','stock','contacts'],
     "data": [
-#         'data/data.xml',
+        'data/data.xml',
         'security/ir.model.access.csv',
         'security/security.xml',
         'views/db_config_view.xml',
