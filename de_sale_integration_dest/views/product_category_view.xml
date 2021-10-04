@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="product_category_form_view_inherit" model="ir.ui.view">
+		<field name="name">product.category.form</field>
+		<field name="model">product.category</field>
+		<field name="inherit_id" ref="product.product_category_form_view" />
+		<field name="arch" type="xml">
+			
+			<xpath expr="//field[@name='parent_id']" position="after">
+				<field name="source_ref" readonly="True" />
+			</xpath>
+
+		</field>
+	</record>
+	
+	
+	<record id="product_attribute_form_view_inherit" model="ir.ui.view">
+		<field name="name">product.attribute.form</field>
+		<field name="model">product.attribute</field>
+		<field name="inherit_id" ref="product.product_attribute_view_form" />
+		<field name="arch" type="xml">
+			
+			<xpath expr="//field[@name='create_variant']" position="after">
+				<field name="source_ref" readonly="True" />
+			</xpath>
+			
+			
+			<xpath expr="//field[@name='value_ids']/tree/field[@name='name']" position="after">
+				<field name="source_ref" readonly="True" />
+			</xpath>
+
+		</field>
+	</record>
+
+</odoo>
+
+
