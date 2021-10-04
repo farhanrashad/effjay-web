@@ -50,7 +50,7 @@ class DataMigrtaionConfig(models.Model):
         password_db_odoo132 = self.get_authenticate()[3]
         odoo_132 = self.get_authenticate()[4]
         
-        products = self.env['product.product'].search([('match_pattern','!=',False)], order="id desc", limit=300)
+        products = self.env['product.product'].search([('source_ref','=',False)], order="id desc", limit=300)
         
         if products:
             for product in products:
@@ -74,7 +74,21 @@ class DataMigrtaionConfig(models.Model):
                                 product.default_code = db1_product_id[0].get('barcode')
 #                             if db1_product_id[0].get('default_code'):
 #                                 product.default_code = db1_product_id[0].get('default_code')
+        
+        products = self.env['product.product'].search([('source_ref','=',False),('barcode','!=',False)], order="id desc", limit=30)
+        print('products---- here',products)
+        if products:
+            for product in products:
+                print('product------',product.name)
+                db1_product_id = model_2.execute_kw(db_odoo132, odoo_132, password_db_odoo132,'product.product','search_read',
+                                                        [[['barcode','=',product.barcode]]],
+                                                        {'fields': ['id'], 'limit': 1})
     
+                print('----db1_product_id2----',db1_product_id)
+                if db1_product_id != []:
+                    if db1_product_id[0]:
+                        if db1_product_id[0].get('id'):
+                            product.source_ref = db1_product_id[0].get('id')
     
     
     @api.model
