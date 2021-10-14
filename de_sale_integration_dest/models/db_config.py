@@ -70,8 +70,16 @@ class DataMigrtaionConfig(models.Model):
                             if db1_product_id[0].get('id'):
                                 product.source_ref = db1_product_id[0].get('id')
                             if db1_product_id[0].get('barcode'):
-                                product.barcode = db1_product_id[0].get('barcode')
                                 product.default_code = db1_product_id[0].get('barcode')
+                                
+                                barcode_exists = self.env['product.product'].search([('barcode','=',db1_product_id[0].get('barcode'))], order="id desc", limit=1)
+                                
+                                """for same barcode message"""
+#                                 if barcode_exists:
+#                                     raise UserError('Same barcode exists as '+(barcode_exists.barcode))
+                                if not barcode_exists:
+                                    product.barcode = db1_product_id[0].get('barcode')
+                                
 #                             if db1_product_id[0].get('default_code'):
 #                                 product.default_code = db1_product_id[0].get('default_code')
         
