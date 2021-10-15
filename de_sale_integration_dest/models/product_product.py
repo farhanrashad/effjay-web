@@ -18,6 +18,8 @@ class ProductProduct(models.Model):
             ids = ''
             
             if rec.product_tmpl_id.source_ref:
+                print('**************************************')
+                print('-----rec.product_template_attribute_value_ids-----',rec.product_template_attribute_value_ids)
                 if rec.product_template_attribute_value_ids:
                     for line in rec.product_template_attribute_value_ids:
                         print('---line---',line.attribute_id.id)

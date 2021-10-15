@@ -13,7 +13,20 @@ class SaleOrderInh(models.Model):
     
     
     is_migrated = fields.Boolean(string='Is Migrated Successfully', default=False)
+    transition_state = fields.Selection([('draft', 'Quotation'),('sent', 'Quotation Sent'),
+                                     ('sale', 'Sales Order'),('done', 'Locked'),('cancel', 'Cancelled'),])
     
+    
+    @api.constrains('transition_state')
+    def _check_transition_state(self):
+        for order in self:
+            if order.transition_state == 'draft':
+                order.action_draft()
+            if order.transition_state == 'sale':
+                order.action_confirm()
+            if order.transition_state == 'cancel':
+                order.action_cancel()
+                
     
     def auto_migrate_sale_orders(self):
         orders = self.search([('is_migrated','=',False)])

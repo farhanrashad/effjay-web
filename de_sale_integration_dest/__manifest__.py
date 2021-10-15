@@ -24,6 +24,7 @@
         'views/res_partner_view.xml',
         'views/product_category_view.xml',
         'views/product_template_view.xml',
+        'views/stock_picking_view.xml',
     ],
     
     "price": 25,
