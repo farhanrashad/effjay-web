@@ -97,7 +97,22 @@ class DataMigrtaionConfig(models.Model):
                     if db1_product_id[0]:
                         if db1_product_id[0].get('id'):
                             product.source_ref = db1_product_id[0].get('id')
+    	
+	products = self.env['product.product'].search([('source_ref','=',False),('default_code','!=',False)], order="id desc", limit=30)
+        print('products---- here',products)
+        if products:
+            for product in products:
+                print('product------',product.name)
+                db1_product_id = model_2.execute_kw(db_odoo132, odoo_132, password_db_odoo132,'product.product','search_read',
+                                                        [[['barcode','=',product.default_code]]],
+                                                        {'fields': ['id'], 'limit': 1})
     
+                print('----db1_product_id2----',db1_product_id)
+                if db1_product_id != []:
+                    if db1_product_id[0]:
+                        if db1_product_id[0].get('id'):
+                            product.source_ref = db1_product_id[0].get('id')
+
     
     @api.model
     def create(self, vals):
