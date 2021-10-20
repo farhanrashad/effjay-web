@@ -116,7 +116,7 @@ class DataMigrtaionConfig(models.Model):
         
         
         
-        products = self.env['product.product'].search([('source_ref', '!=', False), ('default_code', '=', False)], order="id desc", limit=30)
+        products = self.env['product.product'].search([('source_ref', '!=', False), ('default_code', '=', False)], order="id desc", limit=900)
         print('products---- here', products)
         if products:
             for product in products:
