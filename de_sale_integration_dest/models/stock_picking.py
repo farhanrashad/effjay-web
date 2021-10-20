@@ -4,6 +4,10 @@ from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
 
+class StockQuantInh(models.Model):
+    _inherit = 'stock.quant'
+
+
 class StockPickingInh(models.Model):
     _inherit = 'stock.picking'
     _description = 'Stock Picking in DB Integration Sale'
