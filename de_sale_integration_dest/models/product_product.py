@@ -12,6 +12,13 @@ class ProductProduct(models.Model):
     _description = 'Product in DB Integration Sale'
     
     
+    def auto_archive_product(self):
+        products = self.search([('barcode','=',False),('active','=', True)])
+        
+        for product in products:
+            product.active = False
+            
+    
     def synch_product_info(self):
         products = self.browse(self.ids)
         

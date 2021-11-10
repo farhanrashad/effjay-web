@@ -38,6 +38,32 @@
 				
 	         </field>
 	     </record>
+	     
+	     
+	     <record id="action_synch_template_info" model="ir.actions.server">
+	         <field name="name">Synch Template Info</field>
+	         <field name="type">ir.actions.server</field>
+	         <field name="state">code</field>
+	         <field name="model_id" ref="product.model_product_template"/>
+	         <field name="binding_model_id" ref="product.model_product_template"/>
+	         <field name="code">
+				records.synch_template_info()
+				
+	         </field>
+	     </record>
+	     
+	     
+	     <record id="auto_archive_product_with_no_barcodes_cron" model="ir.cron">
+            <field name="name">Auto Archive Product With No Barcode</field>
+            <field name="model_id" ref="de_sale_integration_dest.model_product_product"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.auto_archive_product()</field>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+	        <field name="active" eval="True"/>
+	    </record>
 	    
 	</data>
 </odoo>
