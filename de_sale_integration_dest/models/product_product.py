@@ -63,7 +63,7 @@ class ProductProduct(models.Model):
                     if db1_product_id[0]:
                         if db1_product_id[0].get('barcode'):
                             product.default_code = db1_product_id[0].get('barcode')
-                            product.barcode = db1_product_id[0].get('barcode')
+                            product.barcode = db1_product_id[0].get('default_code')
 #                                 barcode_exists = self.search([('barcode','=',db1_product_id[0].get('barcode'))], order="id desc", limit=1)
                                 
 #                                 """for same barcode message"""
