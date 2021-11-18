@@ -18,6 +18,11 @@ class ProductProduct(models.Model):
         for product in products:
             product.active = False
             
+        products = self.search([('barcode','!=',False),('active','=', False)])
+        
+        for product in products:
+            product.active = True
+            
     
     def synch_product_info(self):
         products = self.browse(self.ids)
